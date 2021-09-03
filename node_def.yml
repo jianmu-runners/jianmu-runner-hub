@@ -1,0 +1,20 @@
+ref: hub_publish
+version: 1.0.0
+inputParameters:
+  - name: hub的url
+    ref: hub_url
+    type: STRING
+    value: https://hub.jianmu.dev
+    description: 发布节点定义版本的地址
+  - name: dsl文件路径
+    ref: dsl_file_path
+    type: STRING
+    value: /xxx/xxx
+    description: 节点定义版本dsl文件路径
+  - name: 认证api_key
+    ref: hub_api_key
+    type: SECRET
+    value: ((xxx.xxx))
+    description: 在个人中心，ApiKey管理界面获取
+spec:
+  image: 'jianmudev/jianmu-runner-node-definition-version-publisher:1.0.0'
