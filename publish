@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+cat ${JIANMU_TASK_DSL_FILE_PATH} | while IFS= read line
+do
+    echo -n "${line}\n" | sed 's/\"/\\\\\\"/g' >> /tmp/dsl_tmp.yml
+done
+
+TASK_DSL=`cat /tmp/dsl_tmp.yml`
+
+curl --request POST "${JIANMU_HUB_URL}/hub/node_definitions/versions" \
+--header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
+--header 'Content-Type: application/json' \
+--data "{\"dsl\":\"${TASK_DSL}\"}"
