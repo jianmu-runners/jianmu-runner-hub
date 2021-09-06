@@ -9,7 +9,7 @@ done
 
 TASK_DSL=`cat /tmp/dsl_tmp.yml`
 
-curl --request POST "${JIANMU_HUB_URL}/hub/node_definitions/versions" \
+curl --request POST "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions" \
 --header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
 --header 'Content-Type: application/json' \
 --data "{\"dsl\":\"${TASK_DSL}\"}"
