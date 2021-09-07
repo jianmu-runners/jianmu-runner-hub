@@ -9,7 +9,16 @@ done
 
 TASK_DSL=`cat /tmp/dsl_tmp.yml`
 
-curl --request POST "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions" \
+status_code=`curl -o /tmp/res_tmp -w %{http_code} \
+--request POST "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions" \
 --header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
 --header 'Content-Type: application/json' \
---data "{\"dsl\":\"${TASK_DSL}\"}"
+--data "{\"dsl\":\"${TASK_DSL}\"}"`
+
+if test ${status_code} -ne '200'
+then
+    cat /tmp/res_tmp
+    exit 1
+fi
+
+echo "发布成功"
