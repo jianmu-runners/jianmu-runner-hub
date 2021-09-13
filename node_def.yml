@@ -4,7 +4,7 @@ inputParameters:
   - name: hub的url
     ref: hub_url
     type: STRING
-    value: https://hub.jianmu.dev
+    value: https://api.jianmu.run
     description: 发布节点定义版本的地址
   - name: dsl文件路径
     ref: dsl_file_path
