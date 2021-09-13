@@ -2,7 +2,7 @@
 
 set -e
 
-cat ${JIANMU_TASK_DSL_FILE_PATH} | while IFS= read line
+cat ${JIANMU_DSL_FILE_PATH} | while IFS= read line
 do
     echo -n "${line}\n" | sed 's/\"/\\\\\\"/g' >> /tmp/dsl_tmp.yml
 done
