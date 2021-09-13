@@ -15,7 +15,11 @@ status_code=`curl -o /tmp/res_tmp -w %{http_code} --location \
 --header 'Content-Type: application/json' \
 --data "{\"dsl\":\"${TASK_DSL}\"}"`
 
-if test ${status_code} -ne '200'
+if test ${status_code} -eq '403'
+then
+    echo "请检查api key"
+    exit 1
+elif test ${status_code} -ne '200'
 then
     cat /tmp/res_tmp
     exit 1
