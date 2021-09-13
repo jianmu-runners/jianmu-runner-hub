@@ -15,6 +15,7 @@ status_code=`curl -o /tmp/res_tmp -w %{http_code} --location \
 --header 'Content-Type: application/json' \
 --data "{\"dsl\":\"${TASK_DSL}\"}"`
 
+echo $status_code
 if test ${status_code} -eq '403'
 then
     echo "请检查api key"
