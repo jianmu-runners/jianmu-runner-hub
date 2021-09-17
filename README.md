@@ -13,7 +13,7 @@ hub_api_key: 用户ApiKey
 #### 构建docker镜像
 ```
 # 创建docker镜像
-docker build -t jianmudev/jianmu-runner-hub:${version} .
+docker build -t jianmudev/jianmu-runner-hub:${version} -f dockerfile/Dockerfile .
 
 # 上传docker镜像
 docker push jianmudev/jianmu-runner-hub:${version}
