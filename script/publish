@@ -14,11 +14,10 @@ sendReq(){
   --header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
   --header 'Content-Type: application/json' \
   --data "{\"dsl\":\"${TASK_DSL}\"}"`
-  echo $status_code;
+  echo $status_code
 }
 
-status_code=`sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"`
-echo ${status_code}
+sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"
 
 # redirect
 if test ${status_code} -eq '301' -o ${status_code} -eq '302'
@@ -29,6 +28,7 @@ then
       then
         URL="${line#*: }"
         URL=${URL%$'\r'}
+        echo $URL
         sendReq "$URL"
         break
       fi
