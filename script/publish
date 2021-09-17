@@ -8,14 +8,33 @@ do
 done
 
 TASK_DSL=`cat /tmp/dsl_tmp.yml`
+sendReq(){
+  status_code=`curl -s -o /tmp/res_tmp -w %{http_code} -D /tmp/location_tmp \
+  --request POST $1 \
+  --header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
+  --header 'Content-Type: application/json' \
+  --data "{\"dsl\":\"${TASK_DSL}\"}"`
+  echo $status_code;
+}
 
-status_code=`curl -o /tmp/res_tmp -w %{http_code} --location \
---request POST "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions" \
---header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
---header 'Content-Type: application/json' \
---data "{\"dsl\":\"${TASK_DSL}\"}"`
+status_code=`sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"`
+echo ${status_code}
 
-echo $status_code
+# redirect
+if test ${status_code} -eq '301' -o ${status_code} -eq '302'
+then
+    cat /tmp/location_tmp | while read line
+    do
+      if test "${line%: *}" == "Location"
+      then
+        URL="${line#*: }"
+        URL=${URL%$'\r'}
+        sendReq "$URL"
+        break
+      fi
+    done
+fi
+
 if test ${status_code} -eq '403'
 then
     echo "请检查api key"
