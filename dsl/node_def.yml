@@ -11,8 +11,13 @@ inputParameters:
     type: STRING
     value: /xxx/xxx
     description: 节点定义版本dsl文件路径
-  - name: 认证api_key
-    ref: hub_api_key
+  - name: 认证api_access_key_id
+    ref: hub_api_ak
+    type: SECRET
+    value: ((xxx.xxx))
+    description: 在个人中心，ApiKey管理界面获取
+  - name: 认证api_secret_access_key_id
+    ref: hub_api_sk
     type: SECRET
     value: ((xxx.xxx))
     description: 在个人中心，ApiKey管理界面获取

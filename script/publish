@@ -2,18 +2,23 @@
 
 set -e
 
+echo "" >> ${JIANMU_DSL_FILE_PATH}
 cat ${JIANMU_DSL_FILE_PATH} | while IFS= read line
 do
     echo -n "${line}\n" | sed 's/\"/\\\\\\"/g' >> /tmp/dsl_tmp.yml
 done
 
 TASK_DSL=`cat /tmp/dsl_tmp.yml`
+REQ_DATA="{\"dsl\":\"${TASK_DSL}\"}"
+SIGNATURE=`echo -n "${REQ_DATA}" | openssl dgst -sha1 -hmac "${JIANMU_HUB_API_SK}"`
+
 sendReq(){
   status_code=`curl -s -o /tmp/res_tmp -w %{http_code} -D /tmp/location_tmp \
   --request POST $1 \
-  --header "X-Api-Key: ${JIANMU_HUB_API_KEY}" \
+  --header "X-Access-Key: ${JIANMU_HUB_API_AK}" \
+  --header "X-Signature: ${SIGNATURE#*= }" \
   --header 'Content-Type: application/json' \
-  --data "{\"dsl\":\"${TASK_DSL}\"}"`
+  --data "${REQ_DATA}"`
   echo $status_code
 }
 

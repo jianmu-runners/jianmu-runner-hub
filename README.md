@@ -7,7 +7,8 @@
 ```
 hub_url: 发布节点定义版本的地址
 dsl_file_path: 节点定义版本dsl文件路径
-hub_api_key: 用户ApiKey
+hub_api_ak: 用户ApiKey的Access_Key_Id
+hub_api_sk: 用户ApiKey的Secret_Access_Key
 ```
 
 #### 构建docker镜像
@@ -24,6 +25,7 @@ docker push jianmudev/jianmu-runner-hub:${version}
 docker run --rm \
   -e JIANMU_HUB_URL=xxx \
   -e JIANMU_DSL_FILE_PATH=xxx \
-  -e JIANMU_HUB_API_KEY=xxx \
+  -e JIANMU_HUB_API_AK=xxx \
+  -e JIANMU_HUB_API_SK=xxx \
   jianmudev/jianmu-runner-hub:${version} 
 ```
