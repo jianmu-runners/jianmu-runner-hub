@@ -22,7 +22,7 @@ sendReq(){
   echo $status_code
 }
 
-sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"
+status_code=`sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"`
 
 # redirect
 if test ${status_code} -eq '301' -o ${status_code} -eq '302'
@@ -34,7 +34,7 @@ then
         URL="${line#*: }"
         URL=${URL%$'\r'}
         echo $URL
-        sendReq "$URL"
+        status_code=`sendReq "$URL"`
         break
       fi
     done
