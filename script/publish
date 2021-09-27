@@ -22,24 +22,22 @@ sendReq(){
   echo $status_code
 }
 
-status_code=`sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"`
-echo $status_code
+sendReq "${JIANMU_HUB_URL}/hub/upload/node_definitions/versions"
 
 # redirect
 if test ${status_code} -eq '301' -o ${status_code} -eq '302'
 then
-    cat /tmp/location_tmp | while read line
+    while read line
     do
       if test "${line%: *}" == "Location"
       then
         URL="${line#*: }"
         URL=${URL%$'\r'}
         echo $URL
-        status_code=`sendReq "$URL"`
-        echo $status_code
+        sendReq "$URL"
         break
       fi
-    done
+    done < /tmp/location_tmp
 fi
 
 if test ${status_code} -eq '403'
@@ -48,7 +46,7 @@ then
     exit 1
 elif test ${status_code} -ne '200'
 then
-    cat /tmp/res_tmp
+    echo `cat /tmp/res_tmp`
     exit 1
 fi
 
