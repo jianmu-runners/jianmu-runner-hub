@@ -1,5 +1,5 @@
 ref: hub_publish
-version: 1.0.1
+version: 1.0.2
 inputParameters:
   - name: hub的url
     ref: hub_url
