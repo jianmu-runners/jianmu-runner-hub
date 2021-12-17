@@ -1,5 +1,6 @@
 ref: hub_publish
 version: 1.1.0
+description: 新增version、image两个输入参数，参数存在时会覆盖dsl中的version和image
 inputParameters:
   - name: hub的url
     ref: hub_url
