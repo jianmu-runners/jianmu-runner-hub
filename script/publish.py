@@ -55,7 +55,7 @@ response = requests.post(
 
 if response.history:
     location = response.history[0].headers.get('location')
-    print("redirect", location)
+    print("redirect:", location)
     response = requests.post(url=location, headers=headers, data=json_data)
 if response.status_code == 403:
     print('error: 请检查 api key')
