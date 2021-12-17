@@ -11,8 +11,8 @@ file_path = os.getenv('JIANMU_DSL_FILE_PATH')
 url = os.getenv('JIANMU_HUB_URL')
 version = os.getenv('JIANMU_VERSION')
 image = os.getenv('JIANMU_IMAGE')
-ak = os.getenv('JIANMU_HUB_API_SK')
-sk = os.getenv('JIANMU_HUB_API_AK')
+ak = os.getenv('JIANMU_HUB_API_AK')
+sk = os.getenv('JIANMU_HUB_API_SK')
 
 #  校验hub_url
 if not validators.url(url):
