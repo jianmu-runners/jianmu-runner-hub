@@ -1,5 +1,5 @@
 ref: hub_publish
-version: 1.0.1
+version: 1.1.0
 inputParameters:
   - name: hub的url
     ref: hub_url
@@ -21,5 +21,15 @@ inputParameters:
     type: SECRET
     required: true
     description: 在个人中心，ApiKey管理界面获取
+  - name: 版本号
+    ref: version
+    type: STRING
+    value: ''
+    description: 版本号，不填写时默认为dsl中定义的版本号
+  - name: 镜像
+    ref: image
+    type: STRING
+    value: ''
+    description: 镜像，不填写时默认为dsl中定义的镜像
 spec:
-  image: 'jianmudev/jianmu-runner-hub:1.0.0'
+  image: 'jianmudev/jianmu-runner-hub:1.1.0'
