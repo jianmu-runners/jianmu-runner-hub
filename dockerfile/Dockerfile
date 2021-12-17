@@ -1,7 +1,8 @@
-FROM curlimages/curl:7.77.0
-
-ADD script/publish /usr/local/bin/
-USER root
-RUN apk add openssl
-ENTRYPOINT ["sh"]
-CMD ["/usr/local/bin/publish"]
+FROM python:3.8-slim-buster
+ADD script/* /usr/local/bin/
+RUN python -m pip install --upgrade pip \
+    && pip install requests \
+    && pip install pyyaml \
+    && pip install validators
+ENTRYPOINT ["python"]
+CMD ["/usr/local/bin/publish.py"]
