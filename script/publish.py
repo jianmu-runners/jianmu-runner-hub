@@ -28,18 +28,18 @@ if version and not version.isspace():
     if not dsl_dict.get('version'):
         print('error: dsl中不存在version')
         sys.exit(1)
-dsl_dict['version'] = version
+    dsl_dict['version'] = version
 if image and not image.isspace():
     if not dsl_dict.get('spec'):
         print('error: dsl中不存在spec')
         sys.exit(1)
+    dsl_dict['spec']['image'] = image
 dsl = yaml.dump(data=dsl_dict, allow_unicode=True, sort_keys=False)
 
 data = {
     'dsl': dsl
 }
 json_data = json.dumps(data)
-print(json_data)
 signature = hmac.new(sk.encode('utf8'), json_data.encode('utf8'), 'sha1').hexdigest()
 
 headers = {
