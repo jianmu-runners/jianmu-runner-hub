@@ -39,6 +39,7 @@ data = {
     'dsl': dsl
 }
 json_data = json.dumps(data)
+print(json_data)
 signature = hmac.new(sk.encode('utf8'), json_data.encode('utf8'), 'sha1').hexdigest()
 
 headers = {
@@ -54,7 +55,7 @@ response = requests.post(
 
 if response.history:
     location = response.history[0].headers.get('location')
-    print(location)
+    print("redirect", location)
     response = requests.post(url=location, headers=headers, data=json_data)
 if response.status_code == 403:
     print('error: 请检查 api key')
