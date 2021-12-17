@@ -21,9 +21,14 @@ if not validators.url(url):
 if url.endswith("/"):
     url = url[0:len(url) - 1]
 
+try:
+    with open(file_path, 'r', encoding="utf-8") as fr:
+        dsl_dict = yaml.full_load(fr)
+except Exception as e:
+    print("error: 解析 yml 文件失败，", e)
+    sys.exit(1)
+
 # 修改版本和镜像
-with open(file_path, 'r', encoding="utf-8") as fr:
-    dsl_dict = yaml.full_load(fr)
 if version and not version.isspace():
     if not dsl_dict.get('version'):
         print('error: dsl中不存在version')
