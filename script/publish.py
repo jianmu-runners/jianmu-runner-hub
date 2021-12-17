@@ -27,7 +27,7 @@ with open(file_path, 'r', encoding="utf-8") as fr:
 if version and not version.isspace():
     if not dsl_dict.get('version'):
         print('error: dsl中不存在version')
-    sys.exit(1)
+        sys.exit(1)
 dsl_dict['version'] = version
 if image and not image.isspace():
     if not dsl_dict.get('spec'):
