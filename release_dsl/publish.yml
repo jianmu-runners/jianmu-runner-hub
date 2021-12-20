@@ -1,0 +1,59 @@
+name: 发布"建木Hub节点定义版本发布"节点
+
+global:
+  param:
+    image_name: jianmudev/jianmu-runner-hub
+
+trigger:
+  type: webhook
+  param:
+    - name: gitee_token
+      type: SECRET
+      exp: $.header.X-Gitee-Token
+    - name: gitee_event
+      type: STRING
+      exp: $.header.X-Gitee-Event
+    - name: gitee_tag_created
+      type: BOOL
+      exp: $.body.json.created
+    - name: gitee_ref
+      type: STRING
+      exp: $.body.json.ref
+  auth:
+    token: ${trigger.gitee_token}
+    value: ((gitee.jianmu-runner-hub))
+  only: (${trigger.gitee_event} === "Tag Push Hook" && ${trigger.gitee_tag_created})
+
+pipeline:
+  git_clone:
+    type: git_clone:1.2.0
+    param:
+      remote_url: https://gitee.com/jianmu-runners/jianmu-runner-hub.git
+      ref: ${trigger.gitee_ref}
+  image_build:
+    type: docker_image_build:1.0.1
+    param:
+      workspace: ${git_clone.git_path}
+      docker_username: ((dockerhub.username))
+      docker_password: ((dockerhub.password))
+      docker_file: dockerfile/Dockerfile
+      image_name: ${global.image_name}
+      image_tag: ${git_clone.git_tag}
+      docker_build_path: .
+  hub_publish:
+    type: hub_publish:1.1.0
+    param:
+      hub_url: https://hub.jianmu.dev
+      dsl_file_path: ${git_clone.git_path}/dsl/node_def.yml
+      hub_api_ak: ((jianmuhub.ak))
+      hub_api_sk: ((jianmuhub.sk))
+      version: ${git_clone.git_tag}
+      image: ${global.image_name}/${git_clone.git_tag}
+  send_message:
+    type: qywx_notice:1.2.1
+    param:
+      bot_webhook_url: ((charbot.webhook_url))
+      mentioned_moblie_list: "[]"
+      text_content: "[建木Hub节点定义版本发布节点]发布成功。\\n\\n版本：${git_clone.git_tag}"
+      msgtype: "text"
+      mentioned_list: "[]"
