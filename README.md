@@ -4,7 +4,7 @@
 发布节点定义版本
 
 #### 发布到建木Hub
-通过建木CI执行[jianmu-runner-hub.yml](https://gitee.com/jianmu-runners/jianmu-runner-list/blob/master/release_dsl/jianmu-runner-hub.yml) ，可发布到建木Hub
+通过建木CI执行[hub_publish.yml](https://gitee.com/jianmu-runners/jianmu-runner-list/blob/master/release_dsl/hub_publish.yml) ，可发布到建木Hub
 
 #### 输入参数
 ```
