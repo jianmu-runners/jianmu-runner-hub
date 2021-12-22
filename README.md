@@ -19,10 +19,10 @@ image: 镜像，不填写时默认为dsl中定义的镜像
 #### 构建docker镜像
 ```
 # 创建docker镜像
-docker build -t jianmudev/jianmu-runner-hub:${version} -f dockerfile/Dockerfile .
+docker build -t jianmurunner/hub_publish:${version} -f dockerfile/Dockerfile .
 
 # 上传docker镜像
-docker push jianmudev/jianmu-runner-hub:${version}
+docker push jianmurunner/hub_publish:${version}
 ```
 
 #### 用法
@@ -34,5 +34,5 @@ docker run --rm \
   -e JIANMU_HUB_API_SK=xxx \
   -e JIANMU_VERSION=xxx \
   -e JIANMU_IMAGE=xxx \
-  jianmudev/jianmu-runner-hub:${version} 
+  jianmurunner/hub_publish:${version} 
 ```

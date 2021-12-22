@@ -33,4 +33,4 @@ inputParameters:
     value: ''
     description: 镜像，不填写时默认为dsl中定义的镜像
 spec:
-  image: 'jianmudev/jianmu-runner-hub:1.1.0'
+  image: 'jianmurunner/hub_publish:1.1.0'
